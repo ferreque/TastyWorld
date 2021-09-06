@@ -4,45 +4,45 @@ const router = Router();
 
 //controladores
 const {validarCampos} = require("../middlewares/validar-campos")
-const { idMesaExiste } = require('../helpers/db-validators');
+const { idComandaExiste } = require('../helpers/db-validators');
 
 const {
-    mesasGet,
-    mesasPost,
-    mesasPut,
-    mesasDelete
-} = require("../controllers/mesas");
+    comandasGet,
+    comandasPost,
+    comandasPut,
+    comandasDelete
+} = require("../controllers/comandas");
 
 
-router.get("/", mesasGet);
+router.get("/", comandasGet);
 
 router.post(
     "/",
     [
-    check("numero","El numero de mesa es obligatorio").not().isEmpty(),
+    check("plato","El numero de mesa es obligatorio").not().isEmpty(),
     validarCampos
     ],
-    mesasPost
+    comandasPost
 );
 
 router.put(
     "/:id",
     [
     check("id", "El menu no existe"),
-    check("id").custom(idMesaExiste),
+    check("id").custom(idComandaExiste),
     validarCampos
     ],
-    mesasPut
+    comandasPut
 );
 
 router.delete(
     "/:id",
     [
         check("id", "No es un ID válido").isMongoId(),
-        check("id").custom(idMesaExiste),
+        check("id").custom(idComandaExiste),
         validarCampos
     ],
-    mesasDelete
+    comandasDelete
 );
 
 module.exports = router;
