@@ -12,7 +12,11 @@ const {
   esWaiterRole,
 } = require("../middlewares/validar-rol");
 const { validarJWT } = require("../middlewares/validar-jwt");
-const { idComandaExiste } = require("../helpers/db-validators");
+const {
+  idComandaExiste,
+  idMenuExiste,
+  nombreMenuExiste,
+} = require("../helpers/db-validators");
 
 const {
   comandasGet,
@@ -27,6 +31,7 @@ router.post(
   "/",
   [
     check("plato", "El plato a pedir es obligatorio").not().isEmpty(),
+    check("plato").custom(nombreMenuExiste),
     validarCampos,
   ],
   comandasPost
@@ -35,6 +40,7 @@ router.post(
 router.put(
   "/:id",
   [
+    check("plato").custom(nombreMenuExiste),
     check("id", "El menu no existe").isMongoId(),
     check("id").custom(idComandaExiste),
     validarCampos,

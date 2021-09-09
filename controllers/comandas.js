@@ -1,11 +1,10 @@
 const { request, response } = require("express");
 const Comanda = require("../models/comanda");
-
+//agrego 2 populate para que me traiga que usuario lo pidió y de que mesa
 const comandasGet = async (req = request, res = response) => {
-  const comanda = await Comanda.find({ estado: true }).populate(
-    "mesa",
-    "numero"
-  );
+  const comanda = await Comanda.find({ estado: true })
+    .populate("mesa", "numero")
+    .populate("usuario", "nombre");
 
   res.json({
     comanda,
@@ -26,7 +25,7 @@ const comandasPost = async (req = request, res = response) => {
 const comandasPut = async (req = request, res = response) => {
   const id = req.params.id;
   const { _id, ...resto } = req.body;
-  const comanda = await Mesa.findByIdAndUpdate(id, resto, { new: true });
+  const comanda = await Comanda.findByIdAndUpdate(id, resto, { new: true });
 
   res.json({
     msg: "Tasty comanda modificada coorectamente",

@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-
+//agrego mesa y usuario correspondiente al populate de controllers
 const ComandaSchema = new Schema({
   plato: {
     type: String,
@@ -8,6 +8,11 @@ const ComandaSchema = new Schema({
   mesa: {
     type: Schema.Types.ObjectId,
     ref: "Mesa",
+    require: true,
+  },
+  usuario: {
+    type: Schema.Types.ObjectId,
+    ref: "Usuario",
     require: true,
   },
   estado: {
