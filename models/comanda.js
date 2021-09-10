@@ -8,7 +8,11 @@ const ComandaSchema= new Schema({
     },
     cliente:{
         type: String,
-        require:[true, "El email es obligatorio"],
+        require:[true, "El usuario es obligatorio"],
+    },
+    mesa:{
+        type: Number,
+        require:[true, "El numero de mesa es obligatorio"],
     },
     estado:{
         type: String,

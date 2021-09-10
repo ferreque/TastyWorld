@@ -8,6 +8,7 @@ const { idComandaExiste } = require('../helpers/db-validators');
 
 const {
     comandasGet,
+    comandasCocinaGet,
     comandasPost,
     comandasPut,
     comandasDelete
@@ -15,11 +16,13 @@ const {
 
 
 router.get("/", comandasGet);
+router.get("/cocina", comandasCocinaGet);
 
 router.post(
     "/",
     [
-    check("plato","El numero de mesa es obligatorio").not().isEmpty(),
+    check("plato", "El plato es obligatorio").not().isEmpty(),
+    check("mesa", "El numero de mesa es obligatorio"),
     validarCampos
     ],
     comandasPost
@@ -28,7 +31,7 @@ router.post(
 router.put(
     "/:id",
     [
-    check("id", "El menu no existe"),
+    check("id", "El ID de comanda indicado no existe"),
     check("id").custom(idComandaExiste),
     validarCampos
     ],

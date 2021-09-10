@@ -9,6 +9,8 @@ class Server {
     this.authPath = "/api/auth";
     this.menuesPath="/api/menues";
     this.mesasPath="/api/mesas";
+    this.comandasPath="/api/comandas";
+    this.comandasCocinaPath="/api/comandas/cocina";
     this.conectarDB();
     this.middlewares();
     this.routes();
@@ -30,6 +32,8 @@ class Server {
     this.app.use(this.usuariosPath, require("../routes/usuarios"));
     this.app.use(this.mesasPath, require("../routes/mesas"));
     this.app.use(this.menuesPath, require("../routes/menues"));
+    this.app.use(this.comandasPath, require("../routes/comandas"));
+    this.app.use(this.comandasCocinaPath, require("../routes/comandas/cocina"));
   }
 
   listen() {

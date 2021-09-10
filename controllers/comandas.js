@@ -1,9 +1,18 @@
 const {request, response}= require('express')
-const Comanda=require("../models/comandas")
+const Comanda=require("../models/comanda")
 
 const comandasGet = async (req = request, res = response)=>{
     
-    const comanda= await Comanda.find({estado: true})
+    const comanda = await Comanda.find()
+
+    res.json({
+        comanda
+    });
+}
+
+const comandasCocinaGet = async (req = request, res = response)=>{
+    
+    const comanda = await Comanda.find({tipo: "Platos", estado: "Pendiente" || "En proceso"})
 
     res.json({
         comanda
@@ -12,8 +21,8 @@ const comandasGet = async (req = request, res = response)=>{
 
 const comandasPost = async (req = request, res = response)=>{
     
-    const { plato, cliente, estado } = req.body;
-    const comanda = new Mesa({plato, cliente, estado });
+    const { plato, cliente, mesa, estado } = req.body;
+    const comanda = new Comanda({plato, cliente, mesa, estado });
     await comanda.save()
 
     res.json({
@@ -25,7 +34,7 @@ const comandasPost = async (req = request, res = response)=>{
 const comandasPut = async (req = request, res = response)=>{
     const id = req.params.id;
     const {_id, ...resto} = req.body;
-    const comanda = await Mesa.findByIdAndUpdate(id, resto, {new: true})
+    const comanda = await Comanda.findByIdAndUpdate(id, resto, {new: true})
     
     res.json({
         msg:"Tasty comanda modificada coorectamente",
@@ -45,6 +54,7 @@ const comandasDelete = async (req = request, res = response)=>{
 
 module.exports={
     comandasGet,
+    comandasCocinaGet,
     comandasPost,
     comandasPut,
     comandasDelete
