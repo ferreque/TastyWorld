@@ -7,8 +7,9 @@ const ComandaSchema= new Schema({
         require:[true, "El nombre es obligatorio"],
     },
     cliente:{
-        type: String,
-        require:[true, "El usuario es obligatorio"],
+        type: Schema.Types.ObjectId,
+        ref:"Usuario",
+        require:true
     },
     mesa:{
         type: Number,
@@ -20,10 +21,18 @@ const ComandaSchema= new Schema({
         require:[true, "El estado es obligatorio"],
         default: "Pendiente"
     },
+    categoria:{
+        tyep:Schema.Types.ObjectId,
+        ref:"Categoria",
+        require:true
+    },
+    descripcion:{
+        type:String,
+    },
 })
 
 ComandaSchema.methods.toJSON = function () {
-    const { __v, _id, ...comanda } = this.toObject();
+    const { __v, ...comanda } = this.toObject();
     comanda.id = _id;
     return comanda;
 };

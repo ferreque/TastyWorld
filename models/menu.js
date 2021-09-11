@@ -16,7 +16,8 @@ const MenuSchema= new Schema({
         require:[true, "La contraseña es obligatoria"]
     },
     img:{
-        type: String
+        type: String,
+        require:true
     },
     precio:{
         type:String,

@@ -3,20 +3,36 @@ const { check } = require('express-validator')
 const router = Router();
 
 //controladores
-const {validarCampos} = require("../middlewares/validar-campos")
+const { validarCampos } = require("../middlewares/validar-campos");
 const { idComandaExiste } = require('../helpers/db-validators');
+const { esAdminRole, esChefRole, esWaiterRole } = require("../middlewares/validar-rol");
 
 const {
     comandasGet,
     comandasCocinaGet,
+    comandasBarraGet,
     comandasPost,
     comandasPut,
     comandasDelete
 } = require("../controllers/comandas");
 
 
-router.get("/", comandasGet);
-router.get("/cocina", comandasCocinaGet);
+//Privado
+router.get(
+    "/",
+    comandasGet,
+    //esAdminRole
+);
+router.get(
+    "/cocina",
+    comandasCocinaGet,
+    //esChefRole
+);
+router.get(
+    "/barra",
+    comandasBarraGet,
+    esWaiterRole
+    );
 
 router.post(
     "/",
@@ -33,7 +49,8 @@ router.put(
     [
     check("id", "El ID de comanda indicado no existe"),
     check("id").custom(idComandaExiste),
-    validarCampos
+    validarCampos,
+    esAdminRole
     ],
     comandasPut
 );
@@ -43,7 +60,8 @@ router.delete(
     [
         check("id", "No es un ID válido").isMongoId(),
         check("id").custom(idComandaExiste),
-        validarCampos
+        validarCampos,
+        esAdminRole,
     ],
     comandasDelete
 );

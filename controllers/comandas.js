@@ -19,6 +19,15 @@ const comandasCocinaGet = async (req = request, res = response)=>{
     });
 }
 
+const comandasBarraGet = async (req = request, res = response)=>{
+    
+    const comanda = await Comanda.find({tipo: "Bebida", estado: "Pendiente" || "En proceso"})
+
+    res.json({
+        comanda
+    });
+}
+
 const comandasPost = async (req = request, res = response)=>{
     
     const { plato, cliente, mesa, estado } = req.body;
@@ -55,6 +64,7 @@ const comandasDelete = async (req = request, res = response)=>{
 module.exports={
     comandasGet,
     comandasCocinaGet,
+    comandasBarraGet,
     comandasPost,
     comandasPut,
     comandasDelete
