@@ -7,8 +7,10 @@ class Server {
     this.app = express();
     this.usuariosPath = "/api/usuarios";
     this.authPath = "/api/auth";
-    this.menuesPath="/api/menues";
-    this.mesasPath="/api/mesas";
+    this.menuesPath = "/api/menues";
+    this.mesasPath = "/api/mesas";
+    //agrego path comandas
+    this.comandasPath = "/api/comandas";
     this.conectarDB();
     this.middlewares();
     this.routes();
@@ -30,6 +32,8 @@ class Server {
     this.app.use(this.usuariosPath, require("../routes/usuarios"));
     this.app.use(this.mesasPath, require("../routes/mesas"));
     this.app.use(this.menuesPath, require("../routes/menues"));
+    //agrego route de comandas
+    this.app.use(this.comandasPath, require("../routes/comandas"));
   }
 
   listen() {
