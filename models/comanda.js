@@ -37,5 +37,4 @@ ComandaSchema.methods.toJSON = function () {
     return comanda;
 };
 
-
-module.exports=model("Comanda", ComandaSchema)
+module.exports = model("Comanda", ComandaSchema);

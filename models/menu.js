@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const { Schema, model } = require("mongoose");
 
 const MenuSchema= new Schema({
 
@@ -30,9 +30,9 @@ const MenuSchema= new Schema({
 })
 
 MenuSchema.methods.toJSON = function () {
-    const { __v, _id, ...menu } = this.toObject();
-    menu.mid = _id;
-    return menu;
+  const { __v, _id, ...menu } = this.toObject();
+  menu.mid = _id;
+  return menu;
 };
 
-module.exports=model("Menu", MenuSchema)
+module.exports = model("Menu", MenuSchema);

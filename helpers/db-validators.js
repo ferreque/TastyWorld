@@ -1,4 +1,5 @@
 const Usuario = require("../models/usuario");
+
 const Menu = require("../models/menu")
 const Mesa = require("../models/mesa")
 const Comanda = require("../models/comanda")
@@ -21,38 +22,37 @@ const idUsuarioExiste = async (id) => {
 };
 
 //Menu
-const nombreMenuExiste = async (nombre="") =>{
-  const nombreMenuExiste = await Menu.findOne({nombre})
+const nombreMenuExiste = async (nombre = "") => {
+  const nombreMenuExiste = await Menu.findOne({ nombre });
 
-  if(nombreMenuExiste){
-      throw new Error(`El menu ${nombre} ya se encuentra registrado`)
+  if (!nombreMenuExiste) {
+    throw new Error(`El plato ${nombre} no existe en nuestro menú`);
   }
 };
 
+const idMenuExiste = async (id) => {
+  const menuExiste = await Menu.findById(id);
 
-const idMenuExiste = async (id) =>{
-  const menuExiste = await Menu.findById(id)
-
-  if(!menuExiste){
-      throw new Error(`El id ${id} no existe`)
+  if (!menuExiste) {
+    throw new Error(`El id ${id} no existe`);
   }
 };
 
 //mesas
-const idMesaExiste = async (id) =>{
-  const mesaExiste = await Mesa.findById(id)
+const idMesaExiste = async (id) => {
+  const mesaExiste = await Mesa.findById(id);
 
-  if(!mesaExiste){
-      throw new Error(`El id ${id} no existe`)
+  if (!mesaExiste) {
+    throw new Error(`El id ${id} no existe`);
   }
 };
 
 //comandas
-const idComandaExiste = async (id) =>{
-  const comandaExiste = await Comanda.findById(id)
+const idComandaExiste = async (id) => {
+  const comandaExiste = await Comanda.findById(id);
 
-  if(!comandaExiste){
-      throw new Error(`El id ${id} no existe`)
+  if (!comandaExiste) {
+    throw new Error(`El id ${id} no existe`);
   }
 };
 
@@ -64,7 +64,6 @@ const existeCategoria = async (id) =>{
       throw new Error(`El id ${id} no existe`)
   }
 };
-
 
 module.exports = {
   emailExiste,

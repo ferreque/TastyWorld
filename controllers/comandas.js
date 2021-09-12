@@ -1,3 +1,4 @@
+
 const {request, response}= require('express')
 const Comanda=require("../models/comanda")
 
@@ -24,9 +25,10 @@ const comandasBarraGet = async (req = request, res = response)=>{
     const comanda = await Comanda.find({tipo: "Bebida", estado: "Pendiente" || "En proceso"})
 
     res.json({
-        comanda
-    });
-}
+    msg: "Nueva Tasty comanda se ha creado",
+    comanda,
+  });
+};
 
 const comandasPost = async (req = request, res = response)=>{
     
@@ -34,11 +36,12 @@ const comandasPost = async (req = request, res = response)=>{
     const comanda = new Comanda({plato, cliente, mesa, estado });
     await comanda.save()
 
-    res.json({
-        msg:"Nueva Tasty comanda se ha creado",
-        comanda
-    });
-}
+  res.json({
+    msg: "Tasty comanda modificada coorectamente",
+    comanda,
+  });
+};
+
 
 const comandasPut = async (req = request, res = response)=>{
     const id = req.params.id;
@@ -50,16 +53,11 @@ const comandasPut = async (req = request, res = response)=>{
         comanda,
     });
 }
-
-const comandasDelete = async (req = request, res = response)=>{
-    const id = req.params.id;
-    const comanda = await Comanda.findByIdAndDelete(id);
-    
-    res.json({
-        msg:"Una tasty comanda se ha eliminado",
-        comanda
-    });
-}
+  res.json({
+    msg: "Una tasty comanda se ha eliminado",
+    comanda,
+  });
+};
 
 module.exports={
     comandasGet,
