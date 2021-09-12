@@ -4,58 +4,67 @@ const router = Router();
 
 //controladores
 const { validarCampos } = require("../middlewares/validar-campos");
-//agrego validaciones de token y roles
-//NO SE DONDE USARLOS
-const {
-  esAdminRole,
-  esChefRole,
-  esWaiterRole,
-} = require("../middlewares/validar-rol");
-const { validarJWT } = require("../middlewares/validar-jwt");
-const {
-  idComandaExiste,
-  idMenuExiste,
-  nombreMenuExiste,
-} = require("../helpers/db-validators");
+const { idComandaExiste } = require('../helpers/db-validators');
+const { esAdminRole, esChefRole, esWaiterRole } = require("../middlewares/validar-rol");
 
 const {
-  comandasGet,
-  comandasPost,
-  comandasPut,
-  comandasDelete,
+    comandasGet,
+    comandasCocinaGet,
+    comandasBarraGet,
+    comandasPost,
+    comandasPut,
+    comandasDelete
 } = require("../controllers/comandas");
 
-router.get("/", comandasGet);
+
+//Privado
+router.get(
+    "/",
+    comandasGet,
+    //esAdminRole
+);
+router.get(
+    "/cocina",
+    comandasCocinaGet,
+    //esChefRole
+);
+router.get(
+    "/barra",
+    comandasBarraGet,
+    esWaiterRole
+    );
 
 router.post(
-  "/",
-  [
-    check("plato", "El plato a pedir es obligatorio").not().isEmpty(),
-    check("plato").custom(nombreMenuExiste),
-    validarCampos,
-  ],
-  comandasPost
+    "/",
+    [
+    check("plato", "El plato es obligatorio").not().isEmpty(),
+    check("mesa", "El numero de mesa es obligatorio"),
+    validarCampos
+    ],
+    comandasPost
 );
 
 router.put(
-  "/:id",
-  [
-    check("plato").custom(nombreMenuExiste),
-    check("id", "El menu no existe").isMongoId(),
+    "/:id",
+    [
+    check("id", "El ID de comanda indicado no existe"),
     check("id").custom(idComandaExiste),
     validarCampos,
-  ],
-  comandasPut
+    esAdminRole
+    ],
+    comandasPut
 );
 
 router.delete(
-  "/:id",
-  [
-    check("id", "No es un ID válido").isMongoId(),
-    check("id").custom(idComandaExiste),
-    validarCampos,
-  ],
-  comandasDelete
+    "/:id",
+    [
+        check("id", "No es un ID válido").isMongoId(),
+        check("id").custom(idComandaExiste),
+        validarCampos,
+        esAdminRole,
+    ],
+    comandasDelete
+
 );
 
 module.exports = router;

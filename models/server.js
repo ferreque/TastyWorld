@@ -7,10 +7,12 @@ class Server {
     this.app = express();
     this.usuariosPath = "/api/usuarios";
     this.authPath = "/api/auth";
-    this.menuesPath = "/api/menues";
-    this.mesasPath = "/api/mesas";
-    //agrego path comandas
-    this.comandasPath = "/api/comandas";
+    this.menuesPath="/api/menues";
+    this.mesasPath="/api/mesas";
+    this.categoriasPath="/api/categorias";
+    this.comandasPath="/api/comandas";
+    this.comandasCocinaPath="/api/comandas/cocina";
+    this.comandasBarraPath="/api/comandas/barra";
     this.conectarDB();
     this.middlewares();
     this.routes();
@@ -32,8 +34,10 @@ class Server {
     this.app.use(this.usuariosPath, require("../routes/usuarios"));
     this.app.use(this.mesasPath, require("../routes/mesas"));
     this.app.use(this.menuesPath, require("../routes/menues"));
-    //agrego route de comandas
+    this.app.use(this.categoriasPath, require("../routes/categorias"));
     this.app.use(this.comandasPath, require("../routes/comandas"));
+    this.app.use(this.comandasCocinaPath, require("../routes/comandas"));
+    this.app.use(this.comandasBarraPath, require("../routes/comandas"));
   }
 
   listen() {
