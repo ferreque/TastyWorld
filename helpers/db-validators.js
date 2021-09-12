@@ -1,7 +1,9 @@
 const Usuario = require("../models/usuario");
-const Menu = require("../models/menu");
-const Mesa = require("../models/mesa");
-const Comanda = require("../models/comanda");
+
+const Menu = require("../models/menu")
+const Mesa = require("../models/mesa")
+const Comanda = require("../models/comanda")
+const Categoria = require("../models/categoria")
 
 const emailExiste = async (email = "") => {
   const existeEmail = await Usuario.findOne({ email });
@@ -54,6 +56,15 @@ const idComandaExiste = async (id) => {
   }
 };
 
+//categorias
+const existeCategoria = async (id) =>{
+  const existeCat = await Categoria.findById(id)
+
+  if(!existeCat){
+      throw new Error(`El id ${id} no existe`)
+  }
+};
+
 module.exports = {
   emailExiste,
   idUsuarioExiste,
@@ -61,4 +72,5 @@ module.exports = {
   idMenuExiste,
   idMesaExiste,
   idComandaExiste,
+  existeCategoria
 };
