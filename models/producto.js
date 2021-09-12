@@ -1,11 +1,15 @@
 const { Schema, model } = require("mongoose");
 
-const MenuSchema= new Schema({
+const ProductoSchema= new Schema({
 
     nombre:{
         type: String,
         require:[true, "El nombre es obligatorio"],
         unique:true
+    },
+    tipo:{
+        type:String,
+        enum:["Plato","Bebida","Promo"]
     },
     pais:{
         type: String,
@@ -29,10 +33,10 @@ const MenuSchema= new Schema({
     },
 })
 
-MenuSchema.methods.toJSON = function () {
-  const { __v, _id, ...menu } = this.toObject();
-  menu.mid = _id;
-  return menu;
+ProductoSchema.methods.toJSON = function () {
+  const { __v, _id, ...producto } = this.toObject();
+  producto.pid = _id;
+  return producto;
 };
 
-module.exports = model("Menu", MenuSchema);
+module.exports = model("Producto", ProductoSchema);

@@ -11,25 +11,25 @@ const {
   esWaiterRole,
 } = require("../middlewares/validar-rol");
 const { validarJWT } = require("../middlewares/validar-jwt");
-const { idMenuExiste, nombreMenuExiste } = require("../helpers/db-validators");
+const { idProductoExiste, nombreProductoExiste } = require("../helpers/db-validators");
 
 const {
-  menuesGet,
-  menuGet,
-  menuesPost,
-  menuesPut,
-  menuesDelete,
-} = require("../controllers/menues");
+  productosGet,
+  productoGet,
+  productosPost,
+  productosPut,
+  productoDelete,
+} = require("../controllers/productos");
 
-router.get("/", menuesGet);
+router.get("/", productosGet);
 
 router.get(
   "/:id",
   [
     check("id", "No es un ID válido").isMongoId(),
-    check("id").custom(idMenuExiste),
+    check("id").custom(idProductoExiste),
   ],
-  menuGet
+  productoGet
 );
 //agrego validaciones de token y roles
 router.post(
@@ -38,12 +38,13 @@ router.post(
     validarJWT,
     esAdminRole,
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("nombre").custom(nombreMenuExiste),
+    check("nombre").custom(nombreProductoExiste),
+    check("tipo", "El tipo es obligatorio").not().isEmpty(),
     check("pais", "El pais es obligatorio").not().isEmpty(),
     check("continente", "El continente es obligatorio").not().isEmpty(),
     validarCampos,
   ],
-  menuesPost
+  productosPost
 );
 //agrego validaciones de token y roles
 router.put(
@@ -51,11 +52,11 @@ router.put(
   [
     validarJWT,
     esAdminRole,
-    check("id", "El menu no existe"),
-    check("id").custom(idMenuExiste),
+    check("id", "El producto no existe"),
+    check("id").custom(idProductoExiste),
     validarCampos,
   ],
-  menuesPut
+  productosPut
 );
 //agrego validaciones de token y roles
 router.delete(
@@ -64,10 +65,10 @@ router.delete(
     validarJWT,
     esAdminRole,
     check("id", "No es un ID válido").isMongoId(),
-    check("id").custom(idMenuExiste),
+    check("id").custom(idProductoExiste),
     validarCampos,
   ],
-  menuesDelete
+  productoDelete
 );
 
 module.exports = router;
