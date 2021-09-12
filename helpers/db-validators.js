@@ -1,9 +1,8 @@
 const Usuario = require("../models/usuario");
 
-const Menu = require("../models/menu")
+const Producto = require("../models/producto")
 const Mesa = require("../models/mesa")
 const Comanda = require("../models/comanda")
-const Categoria = require("../models/categoria")
 
 const emailExiste = async (email = "") => {
   const existeEmail = await Usuario.findOne({ email });
@@ -21,19 +20,19 @@ const idUsuarioExiste = async (id) => {
   }
 };
 
-//Menu
-const nombreMenuExiste = async (nombre = "") => {
-  const nombreMenuExiste = await Menu.findOne({ nombre });
+//Producto
+const nombreProductoExiste = async (nombre = "") => {
+  const nombreProductoExiste = await Producto.findOne({ nombre });
 
-  if (!nombreMenuExiste) {
+  if (!nombreProductoExiste) {
     throw new Error(`El plato ${nombre} no existe en nuestro menú`);
   }
 };
 
-const idMenuExiste = async (id) => {
-  const menuExiste = await Menu.findById(id);
+const idProductoExiste = async (id) => {
+  const productoExiste = await Producto.findById(id);
 
-  if (!menuExiste) {
+  if (!productoExiste) {
     throw new Error(`El id ${id} no existe`);
   }
 };
@@ -56,21 +55,13 @@ const idComandaExiste = async (id) => {
   }
 };
 
-//categorias
-const existeCategoria = async (id) =>{
-  const existeCat = await Categoria.findById(id)
 
-  if(!existeCat){
-      throw new Error(`El id ${id} no existe`)
-  }
-};
 
 module.exports = {
   emailExiste,
   idUsuarioExiste,
-  nombreMenuExiste,
-  idMenuExiste,
+  nombreProductoExiste,
+  idProductoExiste,
   idMesaExiste,
-  idComandaExiste,
-  existeCategoria
+  idComandaExiste
 };

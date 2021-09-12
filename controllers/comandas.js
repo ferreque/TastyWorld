@@ -52,8 +52,13 @@ const comandasPut = async (req = request, res = response)=>{
         msg:"Tasty comanda modificada coorectamente",
         comanda,
     });
-}
-  res.json({
+};
+
+const comandasDelete = async (req = request, res = response)=>{
+    const id = req.params.id;
+    const comanda = await Comanda.findByIdAndDelete(id);
+      
+    res.json({
     msg: "Una tasty comanda se ha eliminado",
     comanda,
   });
