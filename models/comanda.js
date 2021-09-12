@@ -21,11 +21,11 @@ const ComandaSchema= new Schema({
         require:[true, "El estado es obligatorio"],
         default: "Pendiente"
     },
-    categoria:{
+    /*categoria:{
         tyep:Schema.Types.ObjectId,
         ref:"Categoria",
         require:true
-    },
+    },*/
     descripcion:{
         type:String,
     },
