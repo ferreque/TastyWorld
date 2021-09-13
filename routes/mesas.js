@@ -5,15 +5,13 @@ const router = Router();
 //controladores
 const { validarCampos } = require("../middlewares/validar-campos");
 //agrego validaciones de token y roles
-const {
-  esAdminRole,
-  esWaiterRole,
-} = require("../middlewares/validar-rol");
+const { esAdminOrWaiterRole } = require("../middlewares/validar-rol");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const { idMesaExiste } = require("../helpers/db-validators");
 
 const {
   mesasGet,
+  mesasTodasGet,
   mesasPost,
   mesasPut,
   mesasDelete,
@@ -22,13 +20,22 @@ const {
 //Publico
 router.get("/", mesasGet);
 
+//getTODAS LAS MESAS
+router.get(
+  "/todas",
+  [validarJWT, esAdminOrWaiterRole, validarCampos],
+  mesasTodasGet
+);
+
 //agrego validaciones de token y roles @frequena
 router.post(
   "/",
   [
     validarJWT,
-    esAdminRole || esWaiterRole,
-    check("numero", "El tasty numero de la tasty mesa es tasty obligatorio").not().isEmpty(),
+    esAdminOrWaiterRole,
+    check("numero", "El tasty numero de la tasty mesa es tasty obligatorio")
+      .not()
+      .isEmpty(),
     validarCampos,
   ],
   mesasPost
@@ -39,7 +46,7 @@ router.put(
   "/:id",
   [
     validarJWT,
-    esAdminRole || esWaiterRole,
+    esAdminOrWaiterRole,
     check("id", "La tasty mesa no existe").isMongoId(),
     check("id").custom(idMesaExiste),
     validarCampos,
@@ -52,7 +59,7 @@ router.delete(
   "/:id",
   [
     validarJWT,
-    esAdminRole || esWaiterRole,
+    esAdminOrWaiterRole,
     check("id", "No es un ID válido").isMongoId(),
     check("id").custom(idMesaExiste),
     validarCampos,
