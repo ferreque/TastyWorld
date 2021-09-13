@@ -4,8 +4,9 @@ const router = Router();
 
 //controladores
 const { validarCampos } = require("../middlewares/validar-campos");
-const { idComandaExiste } = require('../helpers/db-validators');
+const { idComandaExiste, nombreProductoExiste } = require('../helpers/db-validators');
 const { esAdminRole, esChefRole, esWaiterRole } = require("../middlewares/validar-rol");
+const { validarJWT } = require("../middlewares/validar-jwt");
 
 const {
     comandasGet,
@@ -20,37 +21,55 @@ const {
 //Privado
 router.get(
     "/",
+    [
+        validarJWT,
+        esAdminRole,
+        validarCampos
+    ],
     comandasGet,
-    //esAdminRole
 );
+
 router.get(
     "/cocina",
-    comandasCocinaGet,
-    //esChefRole
+    [
+        validarJWT,
+        esChefRole,
+        validarCampos
+    ],
+    comandasCocinaGet
 );
+
 router.get(
     "/barra",
+    [
+        validarJWT,
+        esWaiterRole,
+        validarCampos
+    ],
     comandasBarraGet,
-    esWaiterRole
-    );
+);
 
+//publico
 router.post(
     "/",
     [
-    check("plato", "El plato es obligatorio").not().isEmpty(),
-    check("mesa", "El numero de mesa es obligatorio"),
-    validarCampos
+        check("producto", "El producto es obligatorio").not().isEmpty(),
+        check("producto").custom(nombreProductoExiste),
+        check("mesa", "El numero de mesa es obligatorio"),
+        validarCampos
     ],
     comandasPost
 );
 
+//privado
 router.put(
     "/:id",
     [
-    check("id", "El ID de comanda indicado no existe"),
-    check("id").custom(idComandaExiste),
-    validarCampos,
-    esAdminRole
+        validarJWT,
+        esAdminRole,
+        check("id", "El ID de comanda indicado no existe").isMongoId(),
+        check("id").custom(idComandaExiste),
+        validarCampos
     ],
     comandasPut
 );
@@ -58,10 +77,11 @@ router.put(
 router.delete(
     "/:id",
     [
+        validarJWT,
+        esAdminRole,
         check("id", "No es un ID válido").isMongoId(),
         check("id").custom(idComandaExiste),
-        validarCampos,
-        esAdminRole,
+        validarCampos
     ],
     comandasDelete
 

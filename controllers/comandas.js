@@ -32,16 +32,15 @@ const comandasBarraGet = async (req = request, res = response)=>{
 
 const comandasPost = async (req = request, res = response)=>{
     
-    const { plato, cliente, mesa, estado } = req.body;
-    const comanda = new Comanda({plato, cliente, mesa, estado });
+    const { producto, cantidad, cliente, mesa, estado, descripcion } = req.body;
+    const comanda = new Comanda({producto, cantidad, cliente, mesa, estado, descripcion });
     await comanda.save()
 
-  res.json({
-    msg: "Tasty comanda modificada coorectamente",
-    comanda,
-  });
+    res.json({
+        msg: "Tasty comanda creada coorectamente",
+        comanda,
+    });
 };
-
 
 const comandasPut = async (req = request, res = response)=>{
     const id = req.params.id;

@@ -24,8 +24,8 @@ const idUsuarioExiste = async (id) => {
 const nombreProductoExiste = async (nombre = "") => {
   const nombreProductoExiste = await Producto.findOne({ nombre });
 
-  if (!nombreProductoExiste) {
-    throw new Error(`El plato ${nombre} no existe en nuestro menú`);
+  if (nombreProductoExiste) {
+    throw new Error(`El producto ${nombre} ya esta registrado en nuestro menú`);
   }
 };
 

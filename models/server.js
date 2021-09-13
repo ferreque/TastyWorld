@@ -7,7 +7,7 @@ class Server {
     this.app = express();
     this.usuariosPath = "/api/usuarios";
     this.authPath = "/api/auth";
-    this.menuesPath="/api/menues";
+    this.productosPath="/api/productos";
     this.mesasPath="/api/mesas";
     this.comandasPath="/api/comandas";
     this.comandasCocinaPath="/api/comandas/cocina";
@@ -32,7 +32,7 @@ class Server {
     this.app.use(this.authPath, require("../routes/auth"));
     this.app.use(this.usuariosPath, require("../routes/usuarios"));
     this.app.use(this.mesasPath, require("../routes/mesas"));
-    this.app.use(this.menuesPath, require("../routes/productos"));
+    this.app.use(this.productosPath, require("../routes/productos"));
     this.app.use(this.comandasPath, require("../routes/comandas"));
     this.app.use(this.comandasCocinaPath, require("../routes/comandas"));
     this.app.use(this.comandasBarraPath, require("../routes/comandas"));
