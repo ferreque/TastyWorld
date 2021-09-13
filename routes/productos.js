@@ -4,6 +4,7 @@ const router = Router();
 
 //controladores
 const { validarCampos } = require("../middlewares/validar-campos");
+
 //agrego validaciones de token y roles
 const {
   esAdminRole,
@@ -31,6 +32,7 @@ router.get(
   ],
   productoGet
 );
+
 //agrego validaciones de token y roles
 router.post(
   "/",
@@ -46,18 +48,20 @@ router.post(
   ],
   productosPost
 );
-//agrego validaciones de token y roles
+
+//Privado - agrego validaciones de token y roles @frequena
 router.put(
   "/:id",
   [
     validarJWT,
     esAdminRole,
-    check("id", "El producto no existe"),
+    check("id", "El producto no existe").isMongoId(),
     check("id").custom(idProductoExiste),
     validarCampos,
   ],
   productosPut
 );
+
 //agrego validaciones de token y roles
 router.delete(
   "/:id",
