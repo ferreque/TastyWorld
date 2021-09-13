@@ -28,14 +28,14 @@ const mesasPut = async (req = request, res = response)=>{
     const mesa = await Mesa.findByIdAndUpdate(id, resto, {new: true})
     
     res.json({
-        msg:"Tasty mesa modificada coorectamente",
+        msg:"Tasty mesa modificada correctamente",
         mesa,
     });
 }
 
 const mesasDelete = async (req = request, res = response)=>{
     const id = req.params.id;
-    const mesa = await Mesa.findByIdAndDelete(id);
+    const mesa = await Mesa.findByIdAndDelete(id, {new: true});
     
     res.json({
         msg:"Una tasty mesa se ha eliminado",

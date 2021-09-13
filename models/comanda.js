@@ -2,9 +2,13 @@ const {Schema, model} = require('mongoose')
 
 const ComandaSchema= new Schema({
 
-    plato:{
+    producto:{
         type: String,
-        require:[true, "El nombre es obligatorio"],
+        require:[true, "El producto es obligatorio"],
+    },
+    cantidad:{
+        type: Number,
+        default:1
     },
     cliente:{
         type: Schema.Types.ObjectId,
@@ -21,11 +25,6 @@ const ComandaSchema= new Schema({
         require:[true, "El estado es obligatorio"],
         default: "Pendiente"
     },
-    /*categoria:{
-        tyep:Schema.Types.ObjectId,
-        ref:"Categoria",
-        require:true
-    },*/
     descripcion:{
         type:String,
     },
@@ -33,7 +32,6 @@ const ComandaSchema= new Schema({
 
 ComandaSchema.methods.toJSON = function () {
     const { __v, ...comanda } = this.toObject();
-    comanda.id = _id;
     return comanda;
 };
 
