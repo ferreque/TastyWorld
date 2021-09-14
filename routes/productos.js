@@ -6,13 +6,12 @@ const router = Router();
 const { validarCampos } = require("../middlewares/validar-campos");
 
 //agrego validaciones de token y roles
-const {
-  esAdminRole,
-  esChefRole,
-  esWaiterRole,
-} = require("../middlewares/validar-rol");
+const { esAdminRole } = require("../middlewares/validar-rol");
 const { validarJWT } = require("../middlewares/validar-jwt");
-const { idProductoExiste, nombreProductoExiste } = require("../helpers/db-validators");
+const {
+  idProductoExiste,
+  nombreProductoExiste,
+} = require("../helpers/db-validators");
 
 const {
   productosGet,
