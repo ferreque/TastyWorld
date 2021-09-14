@@ -71,7 +71,7 @@
           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2MTNkOGJlZDlhY2Y3NjI0NGRlNDUyN2YiLCJpYXQiOjE2MzE0MjM1MDgsImV4cCI6MTYzMTQzMDcwOH0.j5wqjBim5BnTaN69trGg7WCV_lwawpFqVI3tVG1MnPY"
       }
       ```
-### menuesPath="/api/menues";
+### menuesPath="/api/productos";
 ### mesasPath="/api/mesas";
 ### comandasPath="/api/comandas";
 ### comandasCocinaPath="/api/comandas/cocina";
