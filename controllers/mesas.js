@@ -1,5 +1,6 @@
 const { request, response } = require("express");
 const Mesa = require("../models/mesa");
+const { all } = require("../routes/mesas");
 
 const mesasGet = async (req = request, res = response) => {
   let { limite = 0, desde = 0 } = req.query;
@@ -20,7 +21,7 @@ const mesasTodasGet = async (req = request, res = response) => {
   limite = Number(limite);
   desde = Number(desde);
 
-  const mesa = await Mesa.limit(limite).skip(desde);
+  const mesa = await Mesa.find().limit(limite).skip(desde);
 
   const total = await Mesa.countDocuments();
   res.json({
