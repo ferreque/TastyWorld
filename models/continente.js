@@ -23,4 +23,4 @@ ContinenteSchema.methods.toJSON = function () {
   return data;
 };
 
-module.exports = model("Conti", ContinenteSchema);
+module.exports = model("Continente", ContinenteSchema);

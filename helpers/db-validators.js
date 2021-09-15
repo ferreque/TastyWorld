@@ -3,7 +3,7 @@ const Usuario = require("../models/usuario");
 const Producto = require("../models/producto");
 const Mesa = require("../models/mesa");
 const Comanda = require("../models/comanda");
-
+const Continente = require("../models/continente");
 const emailExiste = async (email = "") => {
   const existeEmail = await Usuario.findOne({ email });
 

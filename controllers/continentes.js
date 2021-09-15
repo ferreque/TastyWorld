@@ -12,7 +12,7 @@ const continentesPost = async (req = request, res = response) => {
   const continenteDB = await Continente.findOne({ nombre });
   if (continenteDB) {
     return res.status(400).json({
-      msg: `El continente ${continenteDB.nombre} ya existe`,
+      msg: `El Tasty continente ${continenteDB.nombre} ya existe`,
     });
   }
   const data = {
@@ -31,7 +31,6 @@ const continentesPut = async (req = request, res = response) => {
   const id = req.params.id;
 
   const { _id, ...resto } = req.body;
-  console.log(resto);
   const continente = await Continente.findByIdAndUpdate(id, resto, {
     new: true,
   });
@@ -46,7 +45,7 @@ const continentesDelete = async (req = request, res = response) => {
   const { id } = req.params;
   const continente = await Continente.findByIdAndDelete(id, { new: true });
   res.json({
-    msg: "Continente eliminado",
+    msg: "Tasty continente eliminado",
     continente,
   });
 };
