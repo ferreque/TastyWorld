@@ -40,10 +40,9 @@ const productoGet = async (req = request, res = response) => {
 //Modifico el POST
 const productosPost = async (req = request, res = response) => {
   //verifico que el plato que se quiere agregar no exista ya
-  console.log(req.body)
-  
+
   const { nombre, tipo, pais, continente, img, precio, estado, descripcion } =
-  req.body;
+    req.body;
 
   const productoDB = await Producto.findOne({ nombre });
   if (productoDB) {
@@ -51,7 +50,7 @@ const productosPost = async (req = request, res = response) => {
       msg: `El menú ${productoDB.nombre} ya existe`,
     });
   }
-    
+
   const data = {
     nombre,
     tipo,
@@ -61,7 +60,7 @@ const productosPost = async (req = request, res = response) => {
     precio,
     estado,
     usuario: req.usuario._id,
-    descripcion
+    descripcion,
   };
 
   const producto = new Producto(data);
@@ -86,7 +85,7 @@ const productosPut = async (req = request, res = response) => {
 const productoDelete = async (req = request, res = response) => {
   const id = req.params.id;
   const producto = await Producto.findByIdAndDelete(id, { new: true });
-  
+
   res.json({
     msg: "Un tasty producto se ha eliminado",
     producto,
