@@ -56,7 +56,7 @@ const esAdminOrWaiterRole = (req = request, res = response, next) => {
   }
   const { rol, nombre } = req.usuario;
 
-  if (rol !== "WAITER_ROLE" || rol !== "ADMIN_ROLE") {
+  if (rol !== "WAITER_ROLE" && rol !== "ADMIN_ROLE") {
     return res.status(401).json({
       msg: `El rol de ${nombre} es inválido`,
     });

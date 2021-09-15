@@ -1,9 +1,9 @@
 const Usuario = require("../models/usuario");
 
-const Producto = require("../models/producto")
-const Mesa = require("../models/mesa")
-const Comanda = require("../models/comanda")
-
+const Producto = require("../models/producto");
+const Mesa = require("../models/mesa");
+const Comanda = require("../models/comanda");
+const Continente = require("../models/continente");
 const emailExiste = async (email = "") => {
   const existeEmail = await Usuario.findOne({ email });
 
@@ -17,6 +17,14 @@ const idUsuarioExiste = async (id) => {
 
   if (!existeUsuario) {
     throw new Error("El id de usuario es inexistente");
+  }
+};
+//Continente
+const idContinenteExiste = async (id) => {
+  const continenteExiste = await Continente.findById(id);
+
+  if (!continenteExiste) {
+    throw new Error("El id del continente no existe");
   }
 };
 
@@ -55,13 +63,12 @@ const idComandaExiste = async (id) => {
   }
 };
 
-
-
 module.exports = {
   emailExiste,
   idUsuarioExiste,
+  idContinenteExiste,
   nombreProductoExiste,
   idProductoExiste,
   idMesaExiste,
-  idComandaExiste
+  idComandaExiste,
 };
