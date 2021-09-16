@@ -63,9 +63,27 @@ const esAdminOrWaiterRole = (req = request, res = response, next) => {
   }
   next();
 };
+
+const esAdminOrChefRole = (req = request, res = response, next) => {
+  if (!req.usuario) {
+    return res.status(500).json({
+      msg: "Se debe verificar el token primero",
+    });
+  }
+  const { rol, nombre } = req.usuario;
+
+  if (rol !== "CHEF_ROLE" && rol !== "ADMIN_ROLE") {
+    return res.status(401).json({
+      msg: `El rol de ${nombre} es inválido`,
+    });
+  }
+  next();
+};
+
 module.exports = {
   esAdminRole,
   esChefRole,
   esWaiterRole,
   esAdminOrWaiterRole,
+  esAdminOrChefRole
 };
