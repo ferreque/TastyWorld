@@ -54,7 +54,7 @@ router.post(
     "/",
     [
         check("producto", "El producto es obligatorio").not().isEmpty(),
-        check("producto").custom(nombreProductoExiste),
+        //check("producto").custom(nombreProductoExiste),
         check("mesa", "El numero de mesa es obligatorio"),
         validarCampos
     ],
