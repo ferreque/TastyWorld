@@ -8,7 +8,7 @@ const continentesGet = async (req = request, res = response) => {
 };
 
 const continentesPost = async (req = request, res = response) => {
-  const { nombre } = req.body;
+  const { nombre, img } = req.body;
   const continenteDB = await Continente.findOne({ nombre });
   if (continenteDB) {
     return res.status(400).json({
@@ -17,6 +17,7 @@ const continentesPost = async (req = request, res = response) => {
   }
   const data = {
     nombre,
+    img,
     usuario: req.usuario._id,
   };
   const continente = new Continente(data);

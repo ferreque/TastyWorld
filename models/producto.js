@@ -8,7 +8,7 @@ const ProductoSchema = new Schema({
   },
   tipo: {
     type: String,
-    enum: ["Plato", "Bebida", "Promo"],
+    enum: ["Plato", "Bebida"],
   },
   pais: {
     type: String,
