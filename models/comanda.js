@@ -10,6 +10,11 @@ const ComandaSchema= new Schema({
         type: Number,
         default:1
     },
+    tipo:{
+        type: Schema.Types.ObjectId,
+        ref:"Producto",
+        require:true
+    },
     cliente:{
         type: Schema.Types.ObjectId,
         ref:"Usuario",

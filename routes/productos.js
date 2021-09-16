@@ -14,6 +14,7 @@ const {
 } = require("../helpers/db-validators");
 
 const {
+  productosGetAll,
   productosGet,
   productoGet,
   productosPost,
@@ -21,7 +22,17 @@ const {
   productoDelete,
 } = require("../controllers/productos");
 
+router.get(
+  "/all",[
+  validarJWT,
+  esAdminRole,
+  validarCampos,
+],
+ productosGetAll
+);
+
 router.get("/", productosGet);
+
 
 router.get(
   "/:id",
