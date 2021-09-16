@@ -6,19 +6,24 @@ const ComandaSchema= new Schema({
         type: String,
         require:[true, "El producto es obligatorio"],
     },
+    prodId:{
+        type: String,
+        require:[true, "El id del producto es obligatorio"],
+    },
     cantidad:{
         type: Number,
         default:1
     },
     tipo:{
-        type: Schema.Types.ObjectId,
-        ref:"Producto",
-        require:true
+        type: String,
     },
     cliente:{
         type: Schema.Types.ObjectId,
         ref:"Usuario",
         require:true
+    },
+    nombreCliente:{
+        type: String,
     },
     mesa:{
         type: Number,

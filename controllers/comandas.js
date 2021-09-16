@@ -1,5 +1,8 @@
 const { request, response } = require("express");
+const { body } = require("express-validator");
 const Comanda = require("../models/comanda");
+const Producto = require("../models/producto");
+const Usuario = require("../models/usuario");
 
 const comandasGet = async (req = request, res = response) => {
   const comanda = await Comanda.find();
@@ -10,10 +13,12 @@ const comandasGet = async (req = request, res = response) => {
 };
 
 const comandasCocinaGet = async (req = request, res = response) => {
-  const comanda = await Comanda.find({
-    tipo: "Platos",
-    estado: "Pendiente" || "En proceso",
-  });
+  const comanda = await Promise.all([
+    Comanda.find({estado: "Pendiente" || "En proceso",})
+    .populate("producto", "tipo")
+    .populate("usuario", "id nombre")
+  ]);
+
 
   res.json({
     comanda,
@@ -32,19 +37,21 @@ const comandasBarraGet = async (req = request, res = response) => {
   });
 };
 
-const comandasPost = async (req = request, res = response) => {
-  const { producto, cantidad, cliente, mesa, estado, descripcion } = req.body;
-  const comanda = new Comanda({
-    producto,
-    cantidad,
-    cliente,
-    mesa,
-    estado,
-    descripcion,
-  });
+const comandasPost = async (req , res = response) => {
+  const {...body } = req.body;
+  const prod = await Producto.findById(body.prodid);
+  const tipo = prod.tipo;
+  const cli = await Usuario.findById(body.cliente);
+  const nombreCliente = cli.nombre;
+  const data = {
+    tipo,
+    nombreCliente,
+    ...body
+  }
+  const comanda = new Comanda(data);
   await comanda.save();
-
-  res.json({
+  
+  res.status(201).json({
     msg: "Tasty comanda creada coorectamente",
     comanda,
   });
