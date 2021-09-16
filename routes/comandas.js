@@ -5,7 +5,7 @@ const router = Router();
 //controladores
 const { validarCampos } = require("../middlewares/validar-campos");
 const { idComandaExiste, nombreProductoExiste } = require('../helpers/db-validators');
-const { esAdminRole, esChefRole, esWaiterRole } = require("../middlewares/validar-rol");
+const { esAdminRole, esChefRole, esWaiterRole, esAdminOrChefRole, } = require("../middlewares/validar-rol");
 const { validarJWT } = require("../middlewares/validar-jwt");
 
 const {
@@ -23,7 +23,7 @@ router.get(
     "/",
     [
         validarJWT,
-        esAdminRole,
+        esAdminOrChefRole,
         validarCampos
     ],
     comandasGet,
