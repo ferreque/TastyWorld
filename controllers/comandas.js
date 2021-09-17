@@ -14,11 +14,8 @@ const comandasGet = async (req = request, res = response) => {
 
 const comandasCocinaGet = async (req = request, res = response) => {
   const comanda = await Promise.all([
-    Comanda.find({estado: "Pendiente" || "En proceso",})
-    .populate("producto", "tipo")
-    .populate("usuario", "id nombre")
+    Comanda.find({estado: "Pendiente" || "En proceso", tipo: "Plato"}),
   ]);
-
 
   res.json({
     comanda,
@@ -26,13 +23,21 @@ const comandasCocinaGet = async (req = request, res = response) => {
 };
 
 const comandasBarraGet = async (req = request, res = response) => {
-  const comanda = await Comanda.find({
-    tipo: "Bebida",
-    estado: "Pendiente" || "En proceso",
-  });
+  const comanda = await Promise.all([
+    Comanda.find({estado: "Pendiente" || "En proceso", tipo: "Bebida"}),
+  ]);
 
   res.json({
-    msg: "Nueva Tasty comanda se ha creado",
+    comanda,
+  });
+};
+
+const comandasEntregasGet = async (req = request, res = response) => {
+  const comanda = await Promise.all([
+    Comanda.find({estado: "Realizado"}),
+  ]);
+
+  res.json({
     comanda,
   });
 };
@@ -82,6 +87,7 @@ module.exports = {
   comandasGet,
   comandasCocinaGet,
   comandasBarraGet,
+  comandasEntregasGet,
   comandasPost,
   comandasPut,
   comandasDelete,
