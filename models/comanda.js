@@ -35,6 +35,10 @@ const ComandaSchema= new Schema({
         require:[true, "El estado es obligatorio"],
         default: "Pendiente"
     },
+    numeroPedido:{
+        type: Number,
+        require: true
+    },
     descripcion:{
         type:String,
     },
