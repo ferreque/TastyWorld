@@ -12,6 +12,7 @@ const {
     comandasGet,
     comandasCocinaGet,
     comandasBarraGet,
+    comandasEntregasGet,
     comandasPost,
     comandasPut,
     comandasDelete
@@ -33,7 +34,7 @@ router.get(
     "/cocina",
     [
         validarJWT,
-        esChefRole,
+        esAdminOrChefRole,
         validarCampos
     ],
     comandasCocinaGet
@@ -47,6 +48,16 @@ router.get(
         validarCampos
     ],
     comandasBarraGet,
+);
+
+router.get(
+    "/entregas",
+    [
+        validarJWT,
+        esWaiterRole,
+        validarCampos
+    ],
+    comandasEntregasGet,
 );
 
 //publico
