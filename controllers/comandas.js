@@ -33,7 +33,9 @@ const comandasBarraGet = async (req = request, res = response) => {
 }
 
 const comandasEntregasGet = async (req = request, res = response) => {
-  const comandaFiltrada = await Promise.all([Comanda.find({ estado: 'Realizado' })])
+  const comandaFiltrada = await Promise.all([
+    Comanda.find({ estado: 'Realizado' }),
+  ])
   const comanda = comandaFiltrada[0]
   res.json({
     comanda,
