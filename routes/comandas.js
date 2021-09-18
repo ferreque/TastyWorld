@@ -5,7 +5,7 @@ const router = Router();
 //controladores
 const { validarCampos } = require("../middlewares/validar-campos");
 const { idComandaExiste } = require('../helpers/db-validators');
-const { esAdminRole, esAdminOrChefRole, esAdminOrWaiterRole } = require("../middlewares/validar-rol");
+const { esAdminRole, esAdminOrChefRole, esAdminOrWaiterRole, esStaffRole } = require("../middlewares/validar-rol");
 const { validarJWT } = require("../middlewares/validar-jwt");
 
 const {
@@ -76,7 +76,7 @@ router.put(
     "/:id",
     [
         validarJWT,
-        esAdminRole,
+        esStaffRole,
         check("id", "El ID de comanda indicado no existe").isMongoId(),
         check("id").custom(idComandaExiste),
         validarCampos
