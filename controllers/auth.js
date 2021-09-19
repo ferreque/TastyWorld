@@ -32,6 +32,7 @@ const login = async (req = request, res = response) => {
 
     res.json({
       msg: "Usuario validado",
+      usuario,
       token,
     });
   } catch (error) {
