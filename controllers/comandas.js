@@ -58,7 +58,7 @@ const comandasPost = async (req, res = response) => {
   await comanda.save()
 
   res.status(201).json({
-    msg: 'Tasty comanda creada coorectamente',
+    msg: 'Tasty comanda creada correctamente',
     comanda,
   })
 }
@@ -68,7 +68,7 @@ const comandasPostAdmin = async (req, res = response) => {
   await comanda.save()
 
   res.status(201).json({
-    msg: 'Tasty comanda creada coorectamente',
+    msg: 'Tasty comanda creada correctamente',
     comanda,
   })
 }
@@ -79,7 +79,7 @@ const comandasPut = async (req = request, res = response) => {
   const comanda = await Comanda.findByIdAndUpdate(id, resto, { new: true })
 
   res.json({
-    msg: 'Tasty comanda modificada coorectamente',
+    msg: 'Tasty comanda modificada correctamente',
     comanda,
   })
 }
