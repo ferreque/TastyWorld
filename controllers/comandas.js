@@ -75,7 +75,7 @@ const comandasPostAdmin = async (req, res = response) => {
 
 const comandasPut = async (req = request, res = response) => {
   const id = req.params.id
-  const { _id, ...resto } = req.body
+  const {...resto } = req.body
   const comanda = await Comanda.findByIdAndUpdate(id, resto, { new: true })
 
   res.json({
