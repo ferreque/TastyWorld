@@ -14,7 +14,7 @@ const comandasGet = async (req = request, res = response) => {
 
 const comandasCocinaGet = async (req = request, res = response) => {
   const comandaFiltrada = await Promise.all([
-    Comanda.find({ estado: 'Pendiente' || 'En proceso', tipo: 'Plato' }),
+    Comanda.find({ estado: 'Pendiente' && 'En proceso', tipo: 'Plato' }),
   ])
   const comanda = comandaFiltrada[0]
   res.json({
@@ -63,6 +63,16 @@ const comandasPost = async (req, res = response) => {
   })
 }
 
+const comandasPostAdmin = async (req, res = response) => {
+  const comanda = new Comanda(req.body)
+  await comanda.save()
+
+  res.status(201).json({
+    msg: 'Tasty comanda creada coorectamente',
+    comanda,
+  })
+}
+
 const comandasPut = async (req = request, res = response) => {
   const id = req.params.id
   const { _id, ...resto } = req.body
@@ -90,6 +100,7 @@ module.exports = {
   comandasBarraGet,
   comandasEntregasGet,
   comandasPost,
+  comandasPostAdmin,
   comandasPut,
   comandasDelete,
 }

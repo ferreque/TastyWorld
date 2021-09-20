@@ -14,6 +14,7 @@ const {
     comandasBarraGet,
     comandasEntregasGet,
     comandasPost,
+    comandasPostAdmin,
     comandasPut,
     comandasDelete
 } = require("../controllers/comandas");
@@ -69,6 +70,18 @@ router.post(
         validarCampos
     ],
     comandasPost
+);
+
+router.post(
+    "/admin",
+    [
+        validarJWT,
+        esAdminOrWaiterRole,
+        check("producto", "El producto es obligatorio").not().isEmpty(),
+        check("mesa", "El numero de mesa es obligatorio"),
+        validarCampos
+    ],
+    comandasPostAdmin
 );
 
 //privado
