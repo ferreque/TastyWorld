@@ -45,7 +45,7 @@ const comandasEntregasGet = async (req = request, res = response) => {
 
 const comandasPost = async (req, res = response) => {
   const { ...body } = req.body
-  const prod = await Producto.findById(body.prodid)
+  const prod = await Producto.findById(body.prodId)
   const tipo = prod.tipo
   const cli = await Usuario.findById(body.cliente)
   const nombreCliente = cli.nombre
