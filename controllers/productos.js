@@ -93,7 +93,7 @@ const productosPut = async (req = request, res = response) => {
   const producto = await Producto.findByIdAndUpdate(id, resto, { new: true })
 
   res.json({
-    msg: 'Tasty producto modificado coorectamente',
+    msg: 'Tasty producto modificado correctamente',
     producto,
   })
 }

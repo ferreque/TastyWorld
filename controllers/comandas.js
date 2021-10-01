@@ -33,7 +33,10 @@ const comandasBarraGet = async (req = request, res = response) => {
 }
 
 const comandasEntregasGet = async (req = request, res = response) => {
-  const comandaFiltrada = await Promise.all([Comanda.find({ estado: 'Realizado' })])
+  const comandaFiltrada = await Promise.all([
+    Comanda.find({ estado: 'Realizado' }),
+  ])
+  console.log(comandaFiltrada[0])
   const comanda = comandaFiltrada[0]
   res.json({
     comanda,
@@ -42,7 +45,7 @@ const comandasEntregasGet = async (req = request, res = response) => {
 
 const comandasPost = async (req, res = response) => {
   const { ...body } = req.body
-  const prod = await Producto.findById(body.prodid)
+  const prod = await Producto.findById(body.prodId)
   const tipo = prod.tipo
   const cli = await Usuario.findById(body.cliente)
   const nombreCliente = cli.nombre
@@ -55,18 +58,28 @@ const comandasPost = async (req, res = response) => {
   await comanda.save()
 
   res.status(201).json({
-    msg: 'Tasty comanda creada coorectamente',
+    msg: 'Tasty comanda creada correctamente',
+    comanda,
+  })
+}
+
+const comandasPostAdmin = async (req, res = response) => {
+  const comanda = new Comanda(req.body)
+  await comanda.save()
+
+  res.status(201).json({
+    msg: 'Tasty comanda creada correctamente',
     comanda,
   })
 }
 
 const comandasPut = async (req = request, res = response) => {
   const id = req.params.id
-  const { _id, ...resto } = req.body
+  const {...resto } = req.body
   const comanda = await Comanda.findByIdAndUpdate(id, resto, { new: true })
 
   res.json({
-    msg: 'Tasty comanda modificada coorectamente',
+    msg: 'Tasty comanda modificada correctamente',
     comanda,
   })
 }
@@ -87,6 +100,7 @@ module.exports = {
   comandasBarraGet,
   comandasEntregasGet,
   comandasPost,
+  comandasPostAdmin,
   comandasPut,
   comandasDelete,
 }
