@@ -1,6 +1,7 @@
 const { response, request } = require("express");
 const Continente = require("../models/continente");
-const continentesGet = async (req = request, res = response) => {
+
+const continentesGet = async (res = response) => {
   const continente = await Continente.find({ estado: true });
   res.json({
     continente,

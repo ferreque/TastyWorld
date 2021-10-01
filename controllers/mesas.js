@@ -1,6 +1,5 @@
 const { request, response } = require("express");
 const Mesa = require("../models/mesa");
-const { all } = require("../routes/mesas");
 
 const mesasGet = async (req = request, res = response) => {
   let { limite = 0, desde = 0 } = req.query;
@@ -31,8 +30,16 @@ const mesasTodasGet = async (req = request, res = response) => {
 };
 
 const mesasPost = async (req = request, res = response) => {
-  const { numero, qr, estado } = req.body;
-  const mesa = new Mesa({ numero, qr, estado });
+  const { numero, qr, capacidad, estado } = req.body;
+
+  const mesaDB = await Mesa.findOne({ numero });
+  if (mesaDB) {
+    return res.status(400).json({
+      msg: `La mesa ${mesaDB.numero} ya existe`,
+    });
+  }
+
+  const mesa = new Mesa({ numero, qr, capacidad, estado });
   await mesa.save();
 
   res.json({

@@ -4,110 +4,93 @@ const router = Router();
 
 //controladores
 const { validarCampos } = require("../middlewares/validar-campos");
-const { idComandaExiste } = require('../helpers/db-validators');
-const { esAdminRole, esAdminOrChefRole, esAdminOrWaiterRole, esStaffRole } = require("../middlewares/validar-rol");
+const { idComandaExiste } = require("../helpers/db-validators");
+const {
+  esAdminRole,
+  esAdminOrChefRole,
+  esAdminOrWaiterRole,
+  esStaffRole,
+} = require("../middlewares/validar-rol");
 const { validarJWT } = require("../middlewares/validar-jwt");
 
 const {
-    comandasGet,
-    comandasCocinaGet,
-    comandasBarraGet,
-    comandasEntregasGet,
-    comandasPost,
-    comandasPostAdmin,
-    comandasPut,
-    comandasDelete
+  comandasGet,
+  comandasCocinaGet,
+  comandasBarraGet,
+  comandasEntregasGet,
+  comandasPost,
+  comandasPostAdmin,
+  comandasPut,
+  comandasDelete,
 } = require("../controllers/comandas");
 
-
 //Privado
+router.get("/", [validarJWT, esAdminRole, validarCampos], comandasGet);
+
 router.get(
-    "/",
-    [
-        validarJWT,
-        esAdminRole,
-        validarCampos
-    ],
-    comandasGet,
+  "/cocina",
+  [validarJWT, esAdminOrChefRole, validarCampos],
+  comandasCocinaGet
 );
 
 router.get(
-    "/cocina",
-    [
-        validarJWT,
-        esAdminOrChefRole,
-        validarCampos
-    ],
-    comandasCocinaGet
+  "/barra",
+  [validarJWT, esAdminOrWaiterRole, validarCampos],
+  comandasBarraGet
 );
 
 router.get(
-    "/barra",
-    [
-        validarJWT,
-        esAdminOrWaiterRole,
-        validarCampos
-    ],
-    comandasBarraGet,
-);
-
-router.get(
-    "/entregas",
-    [
-        validarJWT,
-        esAdminOrWaiterRole,
-        validarCampos
-    ],
-    comandasEntregasGet,
+  "/entregas",
+  [validarJWT, esAdminOrWaiterRole, validarCampos],
+  comandasEntregasGet
 );
 
 //publico
 router.post(
-    "/",
-    [
-        check("producto", "El producto es obligatorio").not().isEmpty(),
-        check("mesa", "El numero de mesa es obligatorio"),
-        validarCampos
-    ],
-    comandasPost
+  "/",
+  [
+    check("producto", "El producto es obligatorio").not().isEmpty(),
+    check("mesa", "El numero de mesa es obligatorio"),
+    validarCampos,
+  ],
+  comandasPost
 );
 
 router.post(
-    "/admin",
-    [
-        validarJWT,
-        esAdminOrWaiterRole,
-        check("producto", "El producto es obligatorio").not().isEmpty(),
-        check("mesa", "El numero de mesa es obligatorio"),
-        validarCampos
-    ],
-    comandasPostAdmin
+  "/admin",
+  [
+    validarJWT,
+    esAdminOrWaiterRole,
+    check("producto", "El producto es obligatorio").not().isEmpty(),
+    check("mesa", "El numero de mesa es obligatorio"),
+    validarCampos,
+  ],
+  comandasPostAdmin
 );
 
 //privado
 router.put(
-    "/:id",
-    [
-        validarJWT,
-        esStaffRole,
-        check("id", "El ID de comanda indicado no existe").isMongoId(),
-        check("id").custom(idComandaExiste),
-        validarCampos
-    ],
-    comandasPut
+  "/:id",
+  [
+    validarJWT,
+    esStaffRole,
+    check("id", "El ID de comanda indicado no existe").isMongoId(),
+    check("id").custom(idComandaExiste),
+    validarCampos,
+  ],
+  comandasPut
 );
 
 router.delete(
-    "/:id",
-    [
-        validarJWT,
-        esAdminRole,
-        check("id", "No es un ID válido").isMongoId(),
-        check("id").custom(idComandaExiste),
-        validarCampos
-    ],
-    comandasDelete
-
+  "/:id",
+  [
+    validarJWT,
+    esAdminRole,
+    check("id", "No es un ID válido").isMongoId(),
+    check("id").custom(idComandaExiste),
+    validarCampos,
+  ],
+  comandasDelete
 );
 
 module.exports = router;

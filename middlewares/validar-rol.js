@@ -102,5 +102,5 @@ module.exports = {
   esWaiterRole,
   esAdminOrWaiterRole,
   esAdminOrChefRole,
-  esStaffRole
+  esStaffRole,
 };

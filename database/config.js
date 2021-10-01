@@ -6,7 +6,7 @@ const dbConnection = async () => {
     console.log("Base de datos online! xD");
   } catch (error) {
     console.log(error);
-    throw new Error("Error de conexcion a DB");
+    throw new Error("Error de conexión a DB");
   }
 };
 
