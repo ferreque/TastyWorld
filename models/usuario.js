@@ -21,7 +21,7 @@ const UsuarioSchema = new Schema({
     type: String,
     required: true,
     enum: ["USER_ROLE", "ADMIN_ROLE", "WAITER_ROLE", "CHEF_ROLE"],
-    default: "USER_ROLE"
+    default: "USER_ROLE",
   },
   estado: {
     type: Boolean,

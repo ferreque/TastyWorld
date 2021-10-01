@@ -2,10 +2,8 @@ const { Router } = require("express");
 const { check } = require("express-validator");
 const router = Router();
 
-//controladores
 const { validarCampos } = require("../middlewares/validar-campos");
 
-//agrego validaciones de token y roles
 const { esAdminRole } = require("../middlewares/validar-rol");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const {
@@ -22,14 +20,7 @@ const {
   productoDelete,
 } = require("../controllers/productos");
 
-router.get(
-  "/all",[
-  validarJWT,
-  esAdminRole,
-  validarCampos,
-],
- productosGetAll
-);
+router.get("/all", [validarJWT, esAdminRole, validarCampos], productosGetAll);
 
 router.get("/", productosGet);
 
@@ -42,7 +33,6 @@ router.get(
   productoGet
 );
 
-//agrego validaciones de token y roles
 router.post(
   "/",
   [
@@ -58,7 +48,6 @@ router.post(
   productosPost
 );
 
-//Privado - agrego validaciones de token y roles @frequena
 router.put(
   "/:id",
   [
@@ -71,7 +60,6 @@ router.put(
   productosPut
 );
 
-//agrego validaciones de token y roles
 router.delete(
   "/:id",
   [
