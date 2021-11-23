@@ -25,7 +25,6 @@ const {
 router.get(
   "/all",[
   validarJWT,
-  esAdminRole,
   validarCampos,
 ],
  productosGetAll
