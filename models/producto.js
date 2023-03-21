@@ -12,7 +12,7 @@ const ProductoSchema = new Schema({
   },
   pais: {
     type: String,
-    require: [true, "El email es obligatorio"],
+    require: [true, "El pais es obligatorio"],
   },
   continente: {
     type: String,

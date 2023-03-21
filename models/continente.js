@@ -5,9 +5,9 @@ const ContinenteSchema = new Schema({
     required: [true, "El nombre del continente es obligatorio"],
     unique: true,
   },
-  img:{
+  img: {
     type: String,
-    required: true
+    required: true,
   },
   estado: {
     type: Boolean,

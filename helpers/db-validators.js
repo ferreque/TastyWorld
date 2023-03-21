@@ -1,5 +1,4 @@
 const Usuario = require("../models/usuario");
-
 const Producto = require("../models/producto");
 const Mesa = require("../models/mesa");
 const Comanda = require("../models/comanda");

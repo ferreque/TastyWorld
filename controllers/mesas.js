@@ -1,6 +1,5 @@
 const { request, response } = require("express");
 const Mesa = require("../models/mesa");
-const { all } = require("../routes/mesas");
 
 const mesasGet = async (req = request, res = response) => {
   let { limite = 0, desde = 0 } = req.query;
