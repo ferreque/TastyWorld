@@ -37,7 +37,8 @@ const login = async (req = request, res = response) => {
     });
   } catch (error) {
     return res.status(500).json({
-      msg: "Problema de autenticación - Hablar con admin",
+      error: error,
+      msg: "Problema de autenticación -Hablar con admin",
     });
   }
 };
