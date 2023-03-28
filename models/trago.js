@@ -1,18 +1,14 @@
 const { Schema, model } = require("mongoose");
 
-const ProductoSchema = new Schema({
+const TragoSchema = new Schema({
   nombre: {
     type: String,
-    require: [true, "El nombre del producto es obligatorio"],
+    require: [true, "El nombre del trago es obligatorio"],
     unique: true,
   },
-  pais: {
+  continenteB: {
     type: String,
-    require: [true, "El pais es obligatorio"],
-  },
-  continente: {
-    type: String,
-    require: [true, "El continente es obligatorio"],
+    require: [true, "El Tipo de trago es obligatorio"],
   },
   img: {
     type: String,
@@ -36,9 +32,9 @@ const ProductoSchema = new Schema({
   },
 });
 
-ProductoSchema.methods.toJSON = function () {
-  const { __v, ...producto } = this.toObject();
-  return producto;
+TragoSchema.methods.toJSON = function () {
+  const { __v, ...trago } = this.toObject();
+  return trago;
 };
 
-module.exports = model("Producto", ProductoSchema);
+module.exports = model("Trago", TragoSchema);

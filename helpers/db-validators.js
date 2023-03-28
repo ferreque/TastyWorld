@@ -3,6 +3,7 @@ const Producto = require("../models/producto");
 const Mesa = require("../models/mesa");
 const Comanda = require("../models/comanda");
 const Continente = require("../models/continente");
+const Bebida = require("../models/bebida");
 const emailExiste = async (email = "") => {
   const existeEmail = await Usuario.findOne({ email });
 
@@ -27,6 +28,15 @@ const idContinenteExiste = async (id) => {
   }
 };
 
+//Bebida Categoría
+const idBebidaExiste = async (id) => {
+  const bebidaExiste = await Bebida.findById(id);
+
+  if (!bebidaExiste) {
+    throw new Error("El id de la bebida no existe");
+  }
+};
+
 //Producto
 const nombreProductoExiste = async (nombre = "") => {
   const nombreProductoExiste = await Producto.findOne({ nombre });
@@ -40,6 +50,23 @@ const idProductoExiste = async (id) => {
   const productoExiste = await Producto.findById(id);
 
   if (!productoExiste) {
+    throw new Error(`El id ${id} no existe`);
+  }
+};
+
+//bebida trago
+const nombreTragoExiste = async (nombre = "") => {
+  const nombreTragoExiste = await Trago.findOne({ nombre });
+
+  if (nombreTragoExiste) {
+    throw new Error(`El trago ${nombre} ya esta registrado en nuestro menú`);
+  }
+};
+
+const idTragoExiste = async (id) => {
+  const tragoExiste = await Trago.findById(id);
+
+  if (!tragoExiste) {
     throw new Error(`El id ${id} no existe`);
   }
 };
@@ -66,8 +93,11 @@ module.exports = {
   emailExiste,
   idUsuarioExiste,
   idContinenteExiste,
+  idBebidaExiste,
   nombreProductoExiste,
   idProductoExiste,
+  nombreTragoExiste,
+  idTragoExiste,
   idMesaExiste,
   idComandaExiste,
 };

@@ -1,19 +1,19 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { idContinenteExiste } = require("../helpers/db-validators");
+const { idBebidaExiste } = require("../helpers/db-validators");
 const { validarCampos } = require("../middlewares/validar-campos");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const { esAdminRole } = require("../middlewares/validar-rol");
 
 const {
-  continentesGet,
-  continentesPost,
-  continentesPut,
-  continentesDelete,
-} = require("../controllers/continentes");
+  bebidasGet,
+  bebidasPost,
+  bebidasPut,
+  bebidasDelete,
+} = require("../controllers/bebidas");
 
 const router = Router();
-router.get("/", continentesGet);
+router.get("/", bebidasGet);
 router.post(
   "/",
   [
@@ -22,7 +22,7 @@ router.post(
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
     validarCampos,
   ],
-  continentesPost
+  bebidasPost
 );
 router.put(
   "/:id",
@@ -30,10 +30,10 @@ router.put(
     validarJWT,
     esAdminRole,
     check("id", "No es un id válido").isMongoId(),
-    check("id").custom(idContinenteExiste),
+    check("id").custom(idBebidaExiste),
     validarCampos,
   ],
-  continentesPut
+  bebidasPut
 );
 router.delete(
   "/:id",
@@ -41,9 +41,9 @@ router.delete(
     validarJWT,
     esAdminRole,
     check("id", "No es un ID válido").isMongoId(),
-    check("id").custom(idContinenteExiste),
+    check("id").custom(idBebidaExiste),
     validarCampos,
   ],
-  continentesDelete
+  bebidasDelete
 );
 module.exports = router;
