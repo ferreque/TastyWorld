@@ -24,7 +24,7 @@ const comandasCocinaGet = async (req = request, res = response) => {
 
 const comandasBarraGet = async (req = request, res = response) => {
   const comandaFiltrada = await Promise.all([
-    Comanda.find({ estado: "Pendiente" || "Realizado", tipo: "Bebida" }),
+    Comanda.find({ estado: "Pendiente" || "Realizado", tipo: undefined }),
   ]);
   const comanda = comandaFiltrada[0];
   res.json({
