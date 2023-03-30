@@ -46,8 +46,6 @@ const productoGet = async (req = request, res = response) => {
 };
 //Modifico el POST
 const productosPost = async (req = request, res = response) => {
-  //verifico que el plato que se quiere agregar no exista ya
-
   const { nombre, tipo, pais, continente, img, precio, estado, descripcion } =
     req.body;
 

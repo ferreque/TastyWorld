@@ -46,10 +46,7 @@ const tragoGet = async (req = request, res = response) => {
 };
 //Modifico el POST
 const tragosPost = async (req = request, res = response) => {
-  //verifico que el plato que se quiere agregar no exista ya
-
-  const { nombre, tipo, pais, continente, img, precio, estado, descripcion } =
-    req.body;
+  const { nombre, continenteB, img, precio, estado, descripcion } = req.body;
 
   const tragoDB = await Trago.findOne({ nombre });
   if (tragoDB) {
@@ -60,9 +57,7 @@ const tragosPost = async (req = request, res = response) => {
 
   const data = {
     nombre,
-    tipo,
-    pais,
-    continente,
+    continenteB,
     img,
     precio,
     estado,

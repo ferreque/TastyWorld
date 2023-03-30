@@ -22,13 +22,7 @@ const {
   productoDelete,
 } = require("../controllers/productos");
 
-router.get(
-  "/all",[
-  validarJWT,
-  validarCampos,
-],
- productosGetAll
-);
+router.get("/all", [validarJWT, validarCampos], productosGetAll);
 
 router.get("/", productosGet);
 

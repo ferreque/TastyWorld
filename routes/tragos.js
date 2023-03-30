@@ -36,15 +36,15 @@ router.get(
 );
 
 //agrego validaciones de token y roles
+
 router.post(
   "/",
   [
     validarJWT,
     esAdminRole,
     check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("nombre").custom(nombreTragoExiste),
     check("tipo", "El tipo es obligatorio").not().isEmpty(),
-    check("bebida", "La clase de bebida es obligatoria").not().isEmpty(),
+    check("continenteB", "La clase de bebida es obligatoria").not().isEmpty(),
     validarCampos,
   ],
   tragosPost
