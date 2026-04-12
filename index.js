@@ -4,4 +4,10 @@ const Server = require("./models/server");
 
 const server = new Server();
 
-server.listen();
+// Local development
+if (require.main === module) {
+  server.listen();
+}
+
+// Vercel serverless
+module.exports = server.app;
