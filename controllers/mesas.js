@@ -43,6 +43,17 @@ const mesasPost = async (req = request, res = response) => {
 const mesasPut = async (req = request, res = response) => {
   const id = req.params.id;
   const { _id, ...resto } = req.body;
+
+  // Al liberar mesa, limpiar cliente y hora
+  if (resto.estado === true) {
+    resto.cliente = "";
+    resto.horaOcupacion = null;
+  }
+  // Al ocupar mesa, registrar hora
+  if (resto.estado === false && !resto.horaOcupacion) {
+    resto.horaOcupacion = new Date();
+  }
+
   const mesa = await Mesa.findByIdAndUpdate(id, resto, { new: true });
 
   res.json({

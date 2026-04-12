@@ -15,6 +15,8 @@ const {
     comandasEntregasGet,
     comandasPost,
     comandasPostAdmin,
+    getHistorial,
+    getSeguimiento,
     comandasPut,
     comandasDelete
 } = require("../controllers/comandas");
@@ -61,6 +63,12 @@ router.get(
     comandasEntregasGet,
 );
 
+// historial del usuario logueado
+router.get("/historial", [validarJWT, validarCampos], getHistorial);
+
+// público — seguimiento de pedido por ID
+router.get("/seguimiento/:id", getSeguimiento);
+
 //publico
 router.post(
     "/",
@@ -76,7 +84,6 @@ router.post(
     "/admin",
     [
         validarJWT,
-        esAdminOrWaiterRole,
         check("producto", "El producto es obligatorio").not().isEmpty(),
         check("mesa", "El numero de mesa es obligatorio"),
         validarCampos

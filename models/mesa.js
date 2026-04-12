@@ -12,6 +12,14 @@ const MesaSchema = new Schema({
     type: Boolean,
     default: true,
   },
+  cliente: {
+    type: String,
+    default: "",
+  },
+  horaOcupacion: {
+    type: Date,
+    default: null,
+  },
 });
 
 MesaSchema.methods.toJSON = function () {
